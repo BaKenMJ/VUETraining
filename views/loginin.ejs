@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <style>
+    div {display:inline-block;}
+ </style>
+</head>
+<body>
+    <form role="form">
+        <div style="background-color:silver; width: 30%; margin-left:35%; margin-top: 10%;" id="app">
+        <div style="margin-left:35%; margin-top: 5%;font-size: 30px;">ログイン画面</div>
+        <div class="form-group" style="margin-left:35%;">
+            <label for="name">名前</label>
+            <input type="text" class="form-control" id="name" 
+                   placeholder="名前" v-model='name'>
+            <label for="name">パスワード</label>
+            <input type="text" class="form-control" id="passward" 
+                   placeholder="パスワード" v-model='passward'>
+        </div>
+        <div class="container" style="margin-left:35%;margin-bottom: 20px;">
+            
+            <div ><button type="button" class="btn btn-primary" v-on:click="login" >登録</button></div>
+            <div ><button type="button" class="btn btn-primary" v-on:click="clear">キャンセル</button></div>
+        </div>
+    </div>
+    </form>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var vm =new Vue({
+            el:'#app',
+            data:{
+                name:'',
+                passward:''
+            },
+            methods:{
+                login:function(){
+                    //1.js原有的重定向方法
+                    console.log(this.name);
+                    if(this.name !='' && this.passward !=''){
+                        window.location.href='http://127.0.0.1:3333/loginAction/'+this.name+'&'+this.passward;
+                    }else{
+                        window.location.href='http://127.0.0.1:3333';
+                    }
+
+                    //2.router重定向，需要声明
+                    // this.$router.push("'http://127.0.0.1:3333/loginAction/'+this.name+'&'+this.passward'");
+
+                    //3.$axios重定向，get能取回html页面字符串，但无法跳转；post提示404
+                    /* axios.get('http://127.0.0.1:3333/loginAction/'+this.name+'&'+this.passward).then(function(res){
+                          console.log(res.data);
+                         }).catch(function (error) {
+                              console.log(error);
+                             });
+                    */
+                   //4.$http重定向
+
+                },
+                clear:function(){
+                    this.name='',
+                    this.passward=''
+                }
+            }     
+        })
+    </script>
+</body>
+</html>
