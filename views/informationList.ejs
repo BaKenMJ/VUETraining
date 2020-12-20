@@ -139,7 +139,7 @@
               this.address='';
             },
             search:function(){
-              axios.post('http://127.0.0.1:3333/infosearch',{staffid:this.staffid,name:this.name, furigana:this.furigana,enterdate:this.enterdate,mail:this.mail,address:this.address})
+              axios.post('http://127.0.0.1:3333/infosearch',[{name:"ID",value:this.staffid},{name:"NAME",value:this.name}, {name:"FURIGANA",value:this.furigana},{name:"ENTERDATE",value:this.enterdate},{name:"MAIL",value:this.mail},{name:"Address",value:this.address}])
                   .then(response => this.users = response.data)
             },
             add:function(){

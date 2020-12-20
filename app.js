@@ -76,13 +76,24 @@ app.get('/info2', (req, res) => {
 
 
 app.post('/infosearch', (req, res) => {
-	console.log(req.body);
-	const sql = "SELECT * from staff where ID=?";
-	con.query(sql, [req.body.staffid],function (err, result, fields) {  
-    if (err) throw err;
-	//console.log(result);
-	res.end(JSON.stringify(result));
-	});
+	//console.log("test:"+JSON.stringify(req.body));
+	var userInfo = new Array();
+	var sql = "SELECT * from staff where 1=1 ";
+	for(var i in req.body){
+		if(req.body[i].value !==''){
+			var plus = "and "+req.body[i].name+" = ?";
+			sql = sql + plus;
+			//有值的拿出来!!!
+			userInfo.push(req.body[i].value);
+		}
+	}
+	console.log(userInfo);
+	console.log(sql);
+	con.query(sql, userInfo,function (err, result, fields) {
+		if (err) throw err;
+		console.log(result);
+		res.end(JSON.stringify(result));
+		});
 });
 
 app.get('/staffadd', (req, res) => {
